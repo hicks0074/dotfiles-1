@@ -10,6 +10,7 @@
 #     \::/__/        /:/  /       \::/  /        /:/  /       |:|  |        \:\__\     
 #      ~~            \/__/         \/__/         \/__/         \|__|         \/__/     
 #                                                                                      
+export DOTPATH="$HOME/.dotfiles"
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -285,7 +286,7 @@ bashrc_shopt() {
 }
 
 bashrc_loading() {
-    echo -e "${Blue}Starting ${SHELL}...${NC}"
+    #echo -e "${Blue}Starting ${SHELL}...${NC}"
 
     # Load ~/.modules modules
     local f
@@ -293,7 +294,8 @@ bashrc_loading() {
     do
         # source non-executable file
         if [ ! -x "$f" ]; then
-            . "$f" 2>/dev/null && echo "loading $f" | e_indent 2
+            . "$f" 2>/dev/null 
+			#&& echo "loading $f" | e_indent 2
         fi
     done
     echo
@@ -307,7 +309,7 @@ bashrc_loading() {
 
     # repo is available
     if [ "${#repos[@]}" -ne 0 ]; then
-        e_arrow $(e_header "Setup plugins...")
+        #e_arrow $(e_header "Setup plugins...")
         mkdir -p "$HOME/.repos"
     fi
 
@@ -328,9 +330,9 @@ bashrc_loading() {
         # finding and sourcing script file in repo
         . $(find "$HOME/.repos/$repo" -name "*${repo##*/}*" -depth 1 | grep -E "${repo##*/}($|\.sh$)")
         # displaying the info
-        if [ $? -eq 0 ]; then
-            echo "checking... $HOME/.repos/$repo/${repo##*/}".sh | e_indent 2
-        fi
+        #if [ $? -eq 0 ]; then
+        #    echo "checking... $HOME/.repos/$repo/${repo##*/}".sh | e_indent 2
+        #fi
     done
 
     #[ -f /etc/bash_completion ]     && . /etc/bash_completion
@@ -340,14 +342,14 @@ bashrc_loading() {
 
 bashrc_startup() {
     # tmux_automatically_attach attachs tmux session automatically when your are in zsh
-    tmux_automatically_attach
+    #tmux_automatically_attach
 
     bashrc_loading || return 1
 
     echo
-    echo -e "${BCyan}This is BASH ${BRed}${BASH_VERSION%.*}${BCyan} - DISPLAY on ${BRed}$DISPLAY${NC}"
-    echo "$(date '+%Y-%m-%d %H:%M:%S') $HOSTNAME:$$ $PWD (start)" >> $MYHISTFILE
-
+    #echo -e "${BCyan}This is BASH ${BRed}${BASH_VERSION%.*}${BCyan} - DISPLAY on ${BRed}$DISPLAY${NC}"
+    #echo "$(date '+%Y-%m-%d %H:%M:%S') $HOSTNAME:$$ $PWD (start)" >> $MYHISTFILE
+	echo -e "${BGreen}我们不生产代码，${BCyan}我们只是GITHUB的搬运工!!!"
     #cowsay -f ghostbusters "$(fortune -s)"
     echo
 }
